@@ -1,0 +1,25 @@
+@Testing.Api_HostAddress = https://localhost:7076
+
+### Weather Forecast - Get all forecasts
+GET {{Testing.Api_HostAddress}}/api/weatherforecast
+Accept: application/json
+
+###
+
+### Test API - Simple GET endpoint
+GET {{Testing.Api_HostAddress}}/api/test
+Accept: application/json
+
+###
+
+### Test API - Greet with name
+GET {{Testing.Api_HostAddress}}/api/test/greet/John
+Accept: application/json
+
+###
+
+### Test API - Get status
+GET {{Testing.Api_HostAddress}}/api/test/status
+Accept: application/json
+
+###
