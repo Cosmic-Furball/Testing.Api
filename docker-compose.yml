@@ -1,0 +1,21 @@
+services:
+  testing.api:
+    image: testing.api
+    environment:
+      ASPNETCORE_ENVIRONMENT: docker
+    build:
+      context: .
+      dockerfile: API/Testing.Api/Dockerfile
+    ports:
+      - "8080:80"
+  
+#   postgres:
+#     image: postgres:15
+#     environment:
+#       POSTGRES_PASSWORD: postgres # Don't hardcode passwords!! We should use environment variables but for simplicity, we use a hardcoded password here.
+#     volumes:
+#       - pgdata:/var/lib/postgresql/data
+#       - ./initdb:/docker-entrypoint-initdb.d
+
+# volumes:
+#   pgdata:
