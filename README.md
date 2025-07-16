@@ -20,4 +20,12 @@
 `curl -X GET http://localhost:8080/api/test -H "Accept: application/json"`
 
 ### POST Example
-`curl -X POST http://localhost:8080/api/weatherforecast/add -H "Accept: application/json" -d '{"summary": "Blizzard"}'`
+`curl -X POST http://localhost:8080/api/weatherforecast/add -H "Content-Type: application/json" -d '{"summary": "Blizzard"}'`
+
+
+## WSL 
+* WSL's Windows Host IP: `172.31.176.1`
+    * Obtain with `ip route show | grep -i default`
+
+* Must update `launchSettings.json` to bind to `0.0.0.0` so that the application binds to all network interfaces and is accessible from WSL. 
+    * To run in WSL: `curl -X GET http://172.31.176.1:8080/api/test -H "Accept: application/json"`
