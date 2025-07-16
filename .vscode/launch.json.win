@@ -89,6 +89,15 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
-        }
+        },
+        {
+            "name": "Whale: .NET Attach Debugger",
+            "type": "docker",
+            "request": "attach",
+            "platform": "netCore",
+            "sourceFileMap": {
+                "/build": "${workspaceFolder}"
+            }
+        },
     ]
 }

@@ -39,7 +39,7 @@
             }
         },
         {
-            "name": "Containers: .NET Attach (Preview)",
+            "name": "Whale: .NET Attach Debugger",
             "type": "docker",
             "request": "attach",
             "platform": "netCore",
