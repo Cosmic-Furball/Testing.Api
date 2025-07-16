@@ -18,3 +18,6 @@
 
 ## Testing on the Whale
 `curl -X GET http://localhost:8080/api/test -H "Accept: application/json"`
+
+### POST Example
+`curl -X POST http://localhost:8080/api/weatherforecast/add -H "Accept: application/json" -d '{"summary": "Blizzard"}'`
