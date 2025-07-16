@@ -115,6 +115,26 @@ public class WeatherForecastController : ControllerBase
         return Ok(new { message = $"Summary '{model.Summary}' added successfully" });
     }
 
+    [HttpPut("replace")]
+    public async Task<ActionResult> ReplaceSummaries([FromBody] List<string> summaries)
+    {
+        if (summaries == null || !summaries.Any())
+        {
+            return BadRequest("Summaries cannot be empty");
+        }
+
+        _logger.LogInformation("Replacing all weather forecast summaries");
+
+        var success = await _summaryService.ReplaceSummariesAsync(summaries);
+        
+        if (!success)
+        {
+            return Conflict("Failed to replace summaries");
+        }
+
+        return Ok(new { message = "All summaries replaced successfully" });
+    }
+
     /// <summary>
     /// Removes a weather summary
     /// </summary>

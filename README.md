@@ -22,6 +22,9 @@
 ### POST Example
 `curl -X POST http://localhost:8080/api/weatherforecast/add -H "Content-Type: application/json" -d '{"summary": "Blizzard"}'`
 
+### PUT Example
+`curl -X PUT "http://localhost:8080/api/WeatherForecast/replace" -H "Content-Type: application/json" -d '["Freezing", "Bracing",  "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching", "Blizzard", "Spicy"]'`
+
 
 ## WSL 
 * WSL's Windows Host IP: `172.31.176.1`

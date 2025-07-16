@@ -7,6 +7,7 @@ public interface ISummaryService
     Task<List<string>> GetAllSummariesAsync();
     Task<bool> AddSummaryAsync(string summary);
     Task<bool> RemoveSummaryAsync(string summary);
+    Task<bool> ReplaceSummariesAsync(List<string> summaries);
     Task<bool> SummaryExistsAsync(string summary);
 }
 
@@ -120,6 +121,40 @@ public class SummaryService : ISummaryService
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error removing summary '{Summary}'", summary);
+            return false;
+        }
+        finally
+        {
+            _fileLock.Release();
+        }
+    }
+
+    public async Task<bool> ReplaceSummariesAsync(List<string> summaries)
+    {
+        if (summaries == null)
+        {
+            _logger.LogWarning("Attempted to replace summaries with null list");
+            return false;
+        }
+
+        // Filter out null, empty, or whitespace-only summaries
+        var validSummaries = summaries
+            .Where(s => !string.IsNullOrWhiteSpace(s))
+            .Select(s => s.Trim())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        await _fileLock.WaitAsync();
+        try
+        {
+            await SaveSummariesInternalAsync(validSummaries);
+            
+            _logger.LogInformation("Replaced all summaries with {Count} new summaries", validSummaries.Count);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error replacing summaries");
             return false;
         }
         finally
