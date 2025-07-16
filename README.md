@@ -13,5 +13,8 @@
 * Remove all containers completely: `docker compose down`
     * Useful for ensuring resources which persist beyond a build get destroyed, such as databases.
 
-## Testing
+## Testing Locally
+`curl -X GET http://localhost:5188/api/test -H "Accept: application/json"`
+
+## Testing on the Whale
 `curl -X GET http://localhost:8080/api/test -H "Accept: application/json"`
