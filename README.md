@@ -32,3 +32,22 @@
 
 * Must update `launchSettings.json` to bind to `0.0.0.0` so that the application binds to all network interfaces and is accessible from WSL. 
     * To run in WSL: `curl -X GET http://172.31.176.1:8080/api/test -H "Accept: application/json"`
+
+
+
+## SQL 
+Example SQL queries for creating a table, inserting data, selecting data, and deleting a table.
+
+```
+CREATE TABLE weather_forecasts (
+    id SERIAL PRIMARY KEY,
+    summary VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO weather_forecasts ("summary") VALUES ('glitter rain');
+
+SELECT * FROM weather_forecasts;
+
+DROP TABLE weather_forecasts;
+```
