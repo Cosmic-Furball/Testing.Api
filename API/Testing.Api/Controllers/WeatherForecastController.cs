@@ -3,6 +3,8 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Testing.Api.Models;
 using Testing.Api.Core;
+using Testing.Api.Infrastructure.Postgres.Entities;
+using Testing.Infrastructure.Postgres.Repositories;
 
 namespace Testing.Api.Controllers;
 
@@ -10,11 +12,13 @@ namespace Testing.Api.Controllers;
 [Route("api/[controller]")]
 public class WeatherForecastController : ControllerBase
 {
+    private readonly IWeatherRepository _weatherRepository;
     private readonly ILogger<WeatherForecastController> _logger;
     private readonly ISummaryService _summaryService;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, ISummaryService summaryService)
+    public WeatherForecastController(IWeatherRepository weatherRepository, ILogger<WeatherForecastController> logger, ISummaryService summaryService)
     {
+        _weatherRepository = weatherRepository;
         _logger = logger;
         _summaryService = summaryService;
     }
@@ -106,6 +110,8 @@ public class WeatherForecastController : ControllerBase
         _logger.LogInformation("Adding new weather forecast data: {summary}", model.Summary);
 
         var success = await _summaryService.AddSummaryAsync(model.Summary);
+        await _weatherRepository.CreateAsync(new WeatherSummary() { Summary = model.Summary });
+        await _weatherRepository.SaveChangesAsync();
         
         if (!success)
         {

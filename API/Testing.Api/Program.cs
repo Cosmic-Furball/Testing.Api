@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Testing.Api.Core;
 using Testing.Infrastructure.Postgres;
+using Testing.Infrastructure.Postgres.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +14,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ISummaryService, SummaryService>();
 
 builder.Services.AddDbContext<WeatherDbContext>(options =>
-    options.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres", 
+    options.UseNpgsql("Host=postgres;Port=5432;Database=postgres;Username=postgres;Password=postgres", 
         db => db.MigrationsAssembly("Testing.Infrastructure")));
+
+builder.Services.AddScoped<IWeatherRepository, WeatherRepository>();
 
 var app = builder.Build();
 

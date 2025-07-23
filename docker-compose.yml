@@ -1,6 +1,8 @@
 services:
   testing.api:
     image: testing.api
+    depends_on:
+      - postgres
     environment:
       ASPNETCORE_ENVIRONMENT: docker
     build:
