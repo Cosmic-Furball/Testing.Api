@@ -51,3 +51,18 @@ SELECT * FROM weather_forecasts;
 
 DROP TABLE weather_forecasts;
 ```
+
+## Create Migration Scripts 
+```
+Step 1: Create Migration .cs Files
+
+dotnet ef migrations add TestSpecifyPKey -c ListingsDbContext -o Postgres/Migrations --project ../CAL.CD.Listings.Infrastructure
+
+
+
+Step 2: Create Migration .sql Script
+dotnet ef migrations script <Initial Migration> <New Migration> -c ListingsDbContext -o <OutputFileLocation>
+
+Example: dotnet ef migrations script InitialCreate TestSpecifyPKey -c ListingsDbContext -o ../CAL.CD.Listings.Infrastructure/Postgres/Migrations/`date +%m-%d-%Y`_MigrationScript.sql --project ../CAL.CD.Listings.Infrastructure
+```
+
